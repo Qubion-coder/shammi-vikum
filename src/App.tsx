@@ -12,7 +12,7 @@ import { useInView } from 'react-intersection-observer';
 
 const brideGroomImage = "/WhatsApp Image 2026-09-02 at 02.26.22.jpeg";
 const backgroundMusic = "/Harry_Potter_-_Theme_Song_Hedwig_s_Theme_(mp3.pm).mp3";
-const googleScriptUrl = import.meta.env.VITE_GOOGLE_SCRIPT_URL?.trim() || "";
+const googleScriptUrl = "https://script.google.com/macros/s/AKfycbyjkqwcBO6UGILaPVrFLgHoNHSjhnkU0JrkGdkymlNmWELFr3Afj4OqnUK_zvjyZMFRmg/exec";
 
 /** iOS / Android block unmuted autoplay; iPadOS may report as MacIntel. */
 function isLikelyMobileOrTablet() {
@@ -516,7 +516,10 @@ export default function WeddingInvitation() {
     const params = new URLSearchParams(window.location.search);
     const to = params.get("to");
     if (to) {
-      setGuestName(to.replace(/_/g, " ")); // Replace underscores with spaces for cleaner URLs
+      const nameFromUrl = to.replace(/_/g, " "); // Replace underscores with spaces for cleaner URLs
+      setGuestName(nameFromUrl);
+      setRsvpForm(prev => ({ ...prev, name: nameFromUrl }));
+      setWishForm(prev => ({ ...prev, name: nameFromUrl }));
     }
   }, []);
   // -----------------------------

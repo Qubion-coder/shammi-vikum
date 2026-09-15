@@ -2,14 +2,14 @@
  * Google Apps Script Web App for Wedding RSVP + Wishes
  *
  * Spreadsheet:
- * https://docs.google.com/spreadsheets/d/1WsNJdnLeVIX8ZUAcOROukiP27OeIgZbMLfsCT-HU8JE/edit
+ * https://docs.google.com/spreadsheets/d/1R906ThMeilKDVmPFSzm_24veP438peyt8SWp1wb2gEQ/edit?usp=sharing
  *
  * Required sheets:
  * - rsvp
  * - wish
  */
 
-const SPREADSHEET_ID = "1WsNJdnLeVIX8ZUAcOROukiP27OeIgZbMLfsCT-HU8JE";
+const SPREADSHEET_ID = "1R906ThMeilKDVmPFSzm_24veP438peyt8SWp1wb2gEQ";
 const RSVP_SHEET_NAME = "rsvp";
 const WISH_SHEET_NAME = "wish";
 
@@ -102,10 +102,10 @@ function saveWish_(params) {
 
 function getSheet_(sheetName) {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = spreadsheet.getSheetByName(sheetName);
+  let sheet = spreadsheet.getSheetByName(sheetName);
 
   if (!sheet) {
-    throw new Error("Sheet not found: " + sheetName);
+    sheet = spreadsheet.insertSheet(sheetName);
   }
 
   return sheet;
