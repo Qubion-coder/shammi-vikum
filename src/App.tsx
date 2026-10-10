@@ -716,13 +716,7 @@ export default function WeddingInvitation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 1 } }}
-            onClick={() => {
-              if (isVideoPlaying) {
-                setIsOpened(true);
-                void unlockAudioFromGesture();
-              }
-            }}
-            className="fixed inset-0 z-[200] bg-black flex items-center justify-center overflow-hidden cursor-pointer"
+            className="fixed inset-0 z-[200] bg-black flex items-center justify-center overflow-hidden"
           >
             <video
               ref={videoRef}
