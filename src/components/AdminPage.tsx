@@ -12,9 +12,22 @@ export default function AdminPage() {
     setBaseUrl(window.location.origin);
   }, []);
 
+  const getDisplayName = () => {
+    const trimmedName = name.trim();
+    if (!trimmedName) return "";
+    
+    if (prefix === "Family") {
+      return `${trimmedName} and Family`;
+    } else if (prefix === "None") {
+      return trimmedName;
+    } else {
+      return `${prefix} ${trimmedName}`;
+    }
+  };
+
   const generateLink = () => {
-    const fullName = prefix === "None" ? name : `${prefix} ${name}`;
-    const urlSafeName = fullName.trim().replace(/\s+/g, "_");
+    const fullName = getDisplayName();
+    const urlSafeName = fullName.replace(/\s+/g, "_");
     const link = `${baseUrl}?to=${urlSafeName}`;
     setGeneratedLink(link);
     setCopiedLink(false);
@@ -29,7 +42,10 @@ export default function AdminPage() {
   };
 
   const getMessageText = () => {
-    return `Dear ${prefix === "None" ? "" : prefix} ${name} ❤️\n\nWith joyful hearts, we warmly invite you to celebrate one of the most special days of our lives as we begin our journey together.\n\nPlease view our wedding invitation and all the event details through the link below 🌐:\n\n${generatedLink}\n\nYour presence would truly mean the world to us, and we would be honored to celebrate this beautiful moment together.\n\nWith love,\n❤️ Vikum & Shammi`;
+    const displayName = getDisplayName();
+    const messageGreeting = prefix === "Dear" ? displayName : `Dear ${displayName}`;
+    
+    return `${messageGreeting} ❤️\n\nWith joyful hearts, we warmly invite you to celebrate one of the most special days of our lives as we begin our journey together.\n\nPlease view our wedding invitation and all the event details through the link below 🌐:\n\n${generatedLink}\n\nYour presence would truly mean the world to us, and we would be honored to celebrate this beautiful moment together.\n\nWith love,\n❤️ Vikum & Shammi`;
   };
 
   const copyFullMessage = () => {
