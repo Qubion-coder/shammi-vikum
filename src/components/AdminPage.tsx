@@ -28,7 +28,8 @@ export default function AdminPage() {
   const generateLink = () => {
     const fullName = getDisplayName();
     const urlSafeName = fullName.replace(/\s+/g, "_");
-    const link = `${baseUrl}?to=${urlSafeName}`;
+    const params = new URLSearchParams({ to: urlSafeName });
+    const link = `${baseUrl}?${params.toString()}`;
     setGeneratedLink(link);
     setCopiedLink(false);
     setCopiedMessage(false);
@@ -42,10 +43,20 @@ export default function AdminPage() {
   };
 
   const getMessageText = () => {
-    const displayName = getDisplayName();
-    const messageGreeting = prefix === "Dear" ? displayName : `Dear ${displayName}`;
-    
-    return `${messageGreeting} ❤️\n\nWith joyful hearts, we warmly invite you to celebrate one of the most special days of our lives as we begin our journey together.\n\nPlease view our wedding invitation and all the event details through the link below 🌐:\n\n${generatedLink}\n\nYour presence would truly mean the world to us, and we would be honored to celebrate this beautiful moment together.\n\nWith love,\n❤️ Vikum & Shammi`;
+    return `Some moments in life are simply too special to celebrate without the people who hold a special place in our hearts. As we get ready to begin this beautiful new chapter together, we would love to have you by our side to share the happiness, love, and memories of our wedding day. 🥹❤️
+
+We’ve put together our wedding invitation with all the details of our special day, and we would love for you to take a look at it through the link below. ✨💌
+
+It would mean so much to us to have you there, celebrating with us as we begin our forever. ❤️
+
+Please view our wedding invitation and all the event details through the link below 🌐:
+
+${generatedLink}
+
+Your presence would truly mean the world to us, and we would be honored to celebrate this beautiful moment together.
+
+With all our love,
+Vikum & Shammi ♾️🤍`;
   };
 
   const copyFullMessage = () => {

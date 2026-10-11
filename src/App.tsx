@@ -513,8 +513,11 @@ export default function WeddingInvitation() {
   const [guestName, setGuestName] = useState<string | null>(null);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const to = params.get("to");
+    // Read the raw value so older links with an unencoded "&" remain usable.
+    const rawTo = window.location.search.match(/[?&]to=([^#]*)/)?.[1];
+    const to = rawTo
+      ? decodeURIComponent(rawTo.replace(/\+/g, " "))
+      : null;
     if (to) {
       const nameFromUrl = to.replace(/_/g, " "); // Replace underscores with spaces for cleaner URLs
       setGuestName(nameFromUrl);
@@ -1398,5 +1401,4 @@ export default function WeddingInvitation() {
     </main>
   );
 }
-
 
